@@ -196,11 +196,12 @@ table {
   box-sizing: border-box;
 }
 
+/* 웹 기본 꾸미기 해제 */
 input {
   -webkit-appearance: none;
      -moz-appearance: none;
           appearance: none;
-}
+} 
 
 img {
   max-width: 100%;
