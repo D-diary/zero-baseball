@@ -13,16 +13,16 @@
   const baseball = {
     limit: 10,
     digit: 4,
-    tiral: 0,
+    trial: 0,
     end: false,
-    $question: get('.ball_querstion'),
+    $question: get('.ball_question'),
     $answer: get('.ball_answer'),
     $input: get('.ball_input'),
   }
 
   // 구조 분해 할당으로 각 객체의 값들을 미리 선언해 줄 수 있다.
   // 베이스볼 객체를 각각 키값으로 전역으로 사용할 수 있다.
-  const { limit, digit, tiral, $question, $answer, $input } = baseball
+  const { limit, digit, $question, $answer, $input } = baseball
   let { trial, end } = baseball
 
   const setPassword = () => {
@@ -41,6 +41,7 @@
       gameLimit[random] = true
     }
     baseball.password = password
+    console.log(password)
   }
 
   const onPlayed = (number, hint) => {
@@ -91,7 +92,7 @@
     return ball
   }
 
-  const getResult = () => {
+  const getResult = (number, answer) => {
     // 시도에 따른 결과는
     if(isCorrect(number, answer)) {
       end = true
