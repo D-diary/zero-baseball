@@ -32,14 +32,15 @@
     console.log(gameLimit)
     let password = ''
     while (password.length < digit) {
-      const random = parseInt(Math.random * 10, 10)
+      const random = parseInt(Math.random() * 10, 10)
 
-      if(gameLimit[random]) {
+      if (gameLimit[random]) {
         continue
       }
       password += random
       gameLimit[random] = true
     }
+    baseball.password = password
   }
 
   const onPlayed = (number, hint) => {
@@ -47,24 +48,61 @@
     return `<em>${trial}차 시도</em>: ${number}, ${hint}`
   }
 
-  const isCorrect = () => {
+  const isCorrect = (number, answer) => {
     // 번호가 같은가
+    return number === answer
   }
 
-  const isDuplicate = () => {
+  const isDuplicate = (number) => {
     // 중복 번호가 있는가
+    return [...new Set(number.split(''))].length !== digit
   }
 
-  const getStrikes = () => {
+  const getStrikes = (number, answer) => {
     // 스트라이크 카운트는 몇개
+    let strike = 0
+    const nums = number.split('')
+
+    nums.map((digit, index) => {
+      if (digit === answer[index]) {
+        strike++
+      }
+    })
+
+    return strike
   }
 
-  const getBalls = () => {
+  const getBalls = (number, answer) => {
     // 볼 카운트는 몇개
+    let ball = 0
+    const nums = number.split('')
+    const gameLimit = Array(limit).fill(false)
+
+    answer.split('').map((num) => {
+      gameLimit[num] = true
+    })
+
+    nums.map((num, index) => {
+      if (answer[index] !== num && !!gameLimit[num]) {
+        ball++
+      }
+    })
+
+    return ball
   }
 
   const getResult = () => {
     // 시도에 따른 결과는
+    if(isCorrect(number, answer)) {
+      end = true
+      $answer.innerHTML = baseball.password
+      return '홈런!'
+    }
+    
+    const strikes = getStrikes(number, answer)
+    const balls = getBalls(number, answer)
+
+    return 'STRIKE: ' + strikes + ', BALL: ' + balls
   }
 
   const playGame = (event) => {
