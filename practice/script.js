@@ -27,7 +27,7 @@
 
   const setPassword = () => {
     // 패스워드를 지정해줍니다.
-    // 리밋수만큼(10개)배열 상자를 만듬 10칸의 방에 false를 채워줌
+    // limit만큼(10개)배열 상자를 만듬 10칸의 방에 false를 채워줌
     const gameLimit = Array(limit).fill(false)
     console.log(gameLimit)
     let password = ''
